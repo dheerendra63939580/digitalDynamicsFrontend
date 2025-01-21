@@ -1,0 +1,17 @@
+.nav-container {
+    background: linear-gradient(blue, #000090);
+}
+.nav-container a {
+    color: white;
+    text-decoration: none;
+}
+.color-white {
+    color: white;
+}
+.nav-container>div>span {
+    color: white;
+}
+.link-container {
+    list-style-type: none;
+    margin: 0;
+}
