@@ -12,10 +12,12 @@ const Cart = () => {
         localStorage.setItem("cartItem", JSON.stringify(updatedCart));
     }
     function decreaseQuantity(id) {
-        const updatedItem = cartItems?.map((value) => value?._id === id ? {...value, quantity: value?.quanttiy - 1} : item)
+        const updatedItem = cartItems?.map((value) => value?._id === id && value?.quantity > 1 ? {...value, quantity: value?.quantity - 1} : value)
         setCartItems(updatedItem)
         localStorage.setItem("cartItem", JSON.stringify(updatedItem));
     }
+    if(cartItems?.length === 0)
+        return <span>Cart is empty</span>
     return(
         <div className="m-auto  lg:w-[80%]">
             <h1 className="text-xl p-2 mb-2">Cart</h1>
