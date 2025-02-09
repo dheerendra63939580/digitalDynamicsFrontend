@@ -7,10 +7,10 @@ import HomeCard from './HomeCard'
 import Card from './Card'
 const HeroSection = () => {
     return (
-        <div className="h-[70vh]">
+        <div className="relative">
             <img src="https://t3.ftcdn.net/jpg/06/92/64/12/240_F_692641245_4mN5Oht7xNi4atfJGlSmwUqmmpCypjZz.jpg" alt=""
-                className="w-[100%] h-[100%]" />
-            <Card classes="p-4 relative bottom-10 w-[80%] m-auto max-[651px]:w-[95%]">
+                className="w-[100%] h-[70vh]" />
+            <Card classes="p-4 relative bottom-10 w-full md:w-[80%] m-auto absolute">
                 <div className="flex gap-2 items-center flex-wrap justify-between">
                     <HomeCard
                         image={shipping}
