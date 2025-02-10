@@ -50,7 +50,7 @@ const Navbar = () => {
                     </div>
                     <div className="flex gap-3 whitespace-nowrap">
                         <li><Link to="/product/cart">Cart</Link></li>
-                        <li><Link>Login</Link></li>
+                        <li><Link to='/login'>Login</Link></li>
                     </div>
                 </ul>
             </nav>

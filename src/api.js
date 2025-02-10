@@ -13,3 +13,11 @@ export const getApi = async (endpoint) => {
         throw new Error(err)
     }
 }
+export const postApi = async (endpoint, payload) => {
+    try {
+        const res = await api.post(endpoint, payload)
+        return res;
+    } catch(err) {
+        throw new Error(err)
+    }
+}

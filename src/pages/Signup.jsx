@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { postApi } from '../api';
 
 const Signup = ({setSignup}) => {
   const formik = useFormik({
@@ -21,13 +22,19 @@ const Signup = ({setSignup}) => {
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Confirm Password is required'),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log('Signup data:', values);
+      try {
+        const res = await postApi('user/signup', values);
+        console.log(res)
+      } catch(err) {
+        console.log(err)
+      }
     },
   });
 
   return (
-    <div className="flex flex-col justify-center items-center bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto mt-16">
+    <div className="flex flex-col justify-center items-center bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto">
       <h1 className="text-3xl font-semibold text-gray-800 mb-6">Sign Up</h1>
       <form onSubmit={formik.handleSubmit} className="w-full">
         {/* Name Input */}

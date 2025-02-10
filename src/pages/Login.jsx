@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from "yup"
 import { Signup } from './Signup';
+import { postApi } from '../api';
 const Login = () => {
   const [isSignup, setIsSignup] = useState(false)
   const formik = useFormik({
@@ -13,14 +14,19 @@ const Login = () => {
         email: Yup.string().email('Invalid email address').required('Email is required'),
         password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
       }),
-    onSubmit: (values) => {
-      console.log('Login data', values);
+    onSubmit: async (values) => {
+      try {
+        const res = await postApi("/user/login", values)
+        console.log(res)
+      } catch(err) {
+        throw new Error(err)
+      }
     },
   });
 
   return (
-    <>
-        <div className={`flex flex-col justify-center items-center bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto mt-16 ${isSignup && "hidden"}`}>
+    <div className="bg-blue-400 min-h-screen p-2">
+        <div className={`flex flex-col justify-center items-center bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto ${isSignup && "hidden"}`}>
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Login</h1>
         <form onSubmit={formik.handleSubmit} className="w-full">
             {/* Email Input */}
@@ -74,7 +80,7 @@ const Login = () => {
         </form>
         </div>
         {isSignup && <Signup setSignup={setIsSignup}/>}
-    </>
+    </div>
   );
 };
 
