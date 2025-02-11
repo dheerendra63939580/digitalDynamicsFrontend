@@ -1,10 +1,10 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from "yup"
-import { Signup } from './Signup';
 import { postApi } from '../api';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
-  const [isSignup, setIsSignup] = useState(false)
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -17,16 +17,18 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         const res = await postApi("/user/login", values)
-        console.log(res)
+        console.log(res?.data?.data?.token);
+        localStorage.setItem("token", res?.data?.data?.token);
+        navigate("/")
       } catch(err) {
-        throw new Error(err)
+        console.log(err)
       }
     },
   });
 
   return (
     <div className="bg-blue-400 min-h-screen p-2">
-        <div className={`flex flex-col justify-center items-center bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto ${isSignup && "hidden"}`}>
+        <div className={`flex flex-col justify-center items-center bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto`}>
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Login</h1>
         <form onSubmit={formik.handleSubmit} className="w-full">
             {/* Email Input */}
@@ -65,7 +67,7 @@ const Login = () => {
             </div>
             <div 
                 className="text-end mb-2 underline cursor-pointer"
-                onClick={() => setIsSignup(true)}
+                onClick={() => navigate("/signup")}
             >
                 {"Don't"} Have Account
             </div>
@@ -79,7 +81,6 @@ const Login = () => {
             </div>
         </form>
         </div>
-        {isSignup && <Signup setSignup={setIsSignup}/>}
     </div>
   );
 };

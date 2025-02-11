@@ -5,6 +5,21 @@ const api = axios.create({
     baseURL: baseUrl
 })
 api.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : token;
+
+api.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response) {
+        if (error.response.status === 401) {
+          localStorage.removeItem("token");
+        }
+      }
+      return Promise.reject(error);
+    }
+  );
+
 export const getApi = async (endpoint) => {
     try {
         const res = await api.get(endpoint);

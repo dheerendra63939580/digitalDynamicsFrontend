@@ -1,10 +1,33 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import "./Navbar.css"
 import search from '../assets/icons/search.png'
 import arrowDown from '../assets/icons/downArrow.png'
 import { NavbarMobile } from './NavbarMobile'
+import { getApi } from '../api'
+import { useDispatch } from 'react-redux'
+import { logout, setProfile } from '../reduxToolkit/slices/userSlice'
 const Navbar = () => {
+    const location = useLocation()
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if(!localStorage.getItem("token"))
+            dispatch(logout())
+    }, [location.pathname])
+    useEffect(() => {
+        if(localStorage.getItem("token"))
+            getProfile()
+    }, [])
+    const getProfile = async () => {
+        try {
+            const res = await getApi("/user/profile");
+            console.log(res);
+            dispatch(setProfile(res?.data?.data));
+        } catch(err) {
+            console.log(err)
+            dispatch(logout())
+        }
+    }
     return (
         <>
             <nav className="nav-container flex-col gap-3 lg:p-[10px_80px] sm:p-[10px_15px] p-[10px_16px] sticky top-0 md:flex hidden">
