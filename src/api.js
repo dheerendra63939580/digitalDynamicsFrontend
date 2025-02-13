@@ -1,19 +1,35 @@
 import axios from "axios";
+import { store } from "./reduxToolkit/store";
+import { logout, setLoading } from "./reduxToolkit/slices/userSlice";
 const baseUrl = "http://localhost:3001";
-const token = localStorage.getItem("token") || ""
 const api = axios.create({
     baseURL: baseUrl
 })
-api.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : token;
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token") || ""
+    store.dispatch(setLoading(true))
+    config.headers["Authorization"] = token ? `Bearer ${token}` : "";
+    config.headers["Content-Type"] = "application/json";
+    
+    return config;
+  },
+  (error) => {
+    store.dispatch(setLoading(false))
+    return Promise.reject(error);
+  }
+);
 
 api.interceptors.response.use(
     (response) => {
+      store.dispatch(setLoading(false))
       return response;
     },
     (error) => {
+      store.dispatch(setLoading(false))
       if (error.response) {
         if (error.response.status === 401) {
-          localStorage.removeItem("token");
+          store.dispatch(logout())
         }
       }
       return Promise.reject(error);

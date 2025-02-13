@@ -19,7 +19,6 @@ const getData = async () => {
    try {
     const res = await getApi('/product/category-data')
     setCategoryWiseData(res?.data?.data)
-    console.log(res)
    } catch(err) {
     console.log(err)
    }

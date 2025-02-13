@@ -1,19 +1,16 @@
-import React, { useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import "./Navbar.css"
 import search from '../assets/icons/search.png'
 import arrowDown from '../assets/icons/downArrow.png'
 import { NavbarMobile } from './NavbarMobile'
 import { getApi } from '../api'
-import { useDispatch } from 'react-redux'
-import { logout, setProfile } from '../reduxToolkit/slices/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { accessProfile, logout, setProfile } from '../reduxToolkit/slices/userSlice'
 const Navbar = () => {
-    const location = useLocation()
+    const profile = useSelector(accessProfile)
     const dispatch = useDispatch();
-    useEffect(() => {
-        if(!localStorage.getItem("token"))
-            dispatch(logout())
-    }, [location.pathname])
+    const [showEditButton, setShowEditButton] = useState(false);
     useEffect(() => {
         if(localStorage.getItem("token"))
             getProfile()
@@ -21,10 +18,8 @@ const Navbar = () => {
     const getProfile = async () => {
         try {
             const res = await getApi("/user/profile");
-            console.log(res);
             dispatch(setProfile(res?.data?.data));
         } catch(err) {
-            console.log(err)
             dispatch(logout())
         }
     }
@@ -52,9 +47,8 @@ const Navbar = () => {
                 <ul className="link-container flex gap-10 justify-between items-center">
                     <div className="flex flex-wrap gap-3">
                         <li className="color-white group relative">
-                            <div className="flex  items-center">
+                            <div className="flex  items-center gap-1">
                                 <span>All Products</span>
-                                <img src={arrowDown} alt="" className="w-6" />
                             </div>
                             <div className="hidden group-hover:flex flex-col gap-3 absolute bg-blue-600 p-1 w-[200px] rounded-lg">
                                 <Link to="/product/air conditioner">Air conditionar</Link>
@@ -73,7 +67,22 @@ const Navbar = () => {
                     </div>
                     <div className="flex gap-3 whitespace-nowrap">
                         <li><Link to="/product/cart">Cart</Link></li>
-                        <li><Link to='/login'>Login</Link></li>
+                        {!profile.name && <li><Link to='/login'>Login</Link></li> }
+                       {profile.name && 
+                       <div 
+                            className="flex items-center gap-2 bg-gray-200 px-2 py-1 rounded-lg relative cursor-pointer"
+                            onClick={() => setShowEditButton(!showEditButton)}
+                        >
+                            <span>{profile?.name}</span>
+                            <img src={arrowDown} alt="" className={`w-6 ${showEditButton && "rotate-180"}`}/>
+                           {showEditButton && 
+                           <div className="bg-gray-200 px-2 py-1 absolute flex flex-col gap-2 right-0 left-0 -bottom-[68px] rounded-lg"
+                            onClick={(e) => e.stopPropagation()}
+                           >
+                                <button>Edit Profile</button>
+                                <button>Log out</button>
+                            </div> }
+                        </div> }
                     </div>
                 </ul>
             </nav>
