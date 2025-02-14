@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { Loading } from "../components/Loading";
 import { AddToCart } from "../helper";
+import { useSelector } from "react-redux";
+import { accessProfile } from "../reduxToolkit/slices/userSlice";
 
 const ProductPage = () => {
     const {id, category} = useParams();
+    const profile = useSelector(accessProfile);
+    console.log(profile)
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(false);
     const [count, setCount] = useState(1);

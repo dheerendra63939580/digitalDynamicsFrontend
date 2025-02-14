@@ -1,10 +1,14 @@
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Yup from "yup"
 import { postApi } from '../api';
 import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const navigate = useNavigate()
+  useEffect(() => {
+    if(localStorage.getItem("token"))
+      navigate("/")
+  }, [])
   const formik = useFormik({
     initialValues: {
       email: '',

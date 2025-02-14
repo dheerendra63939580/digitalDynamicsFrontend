@@ -1,6 +1,6 @@
 .nav-container {
     background: linear-gradient(blue, #000090);
-    z-index: 100;
+    z-index: 30;
 }
 .nav-container a {
     color: white;

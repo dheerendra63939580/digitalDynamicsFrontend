@@ -7,10 +7,12 @@ import { NavbarMobile } from './NavbarMobile'
 import { getApi } from '../api'
 import { useDispatch, useSelector } from 'react-redux'
 import { accessProfile, logout, setProfile } from '../reduxToolkit/slices/userSlice'
+import { EditProfile } from '../pages/EditUserProfile'
 const Navbar = () => {
     const profile = useSelector(accessProfile)
     const dispatch = useDispatch();
     const [showEditButton, setShowEditButton] = useState(false);
+    const [editProfile, setEditProfile] = useState(false);
     useEffect(() => {
         if(localStorage.getItem("token"))
             getProfile()
@@ -79,12 +81,27 @@ const Navbar = () => {
                            <div className="bg-gray-200 px-2 py-1 absolute flex flex-col gap-2 right-0 left-0 -bottom-[68px] rounded-lg"
                             onClick={(e) => e.stopPropagation()}
                            >
-                                <button>Edit Profile</button>
-                                <button>Log out</button>
+                                <button
+                                    onClick={() => setEditProfile(true)}
+                                >
+                                    Edit Profile
+                                </button>
+                                <button
+                                    onClick={() => dispatch(logout())}
+                                >
+                                    Log out
+                                </button>
                             </div> }
                         </div> }
                     </div>
                 </ul>
+                <div
+                className={`absolute z-50 bg-white right-2 top-2 transition-transform duration-300 ${
+                    editProfile ? "translate-x-0" : "translate-x-full"
+                } px-4 py-2 rounded-lg`}
+                >
+                <EditProfile handleClose={() => setEditProfile(false)} />
+            </div>
             </nav>
             <div className="block md:hidden">
                 <NavbarMobile/>
