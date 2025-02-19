@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import * as Yup from "yup"
 import { postApi } from '../api';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 const Login = () => {
   const navigate = useNavigate()
   useEffect(() => {
@@ -21,10 +22,11 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         const res = await postApi("/user/login", values)
-        console.log(res?.data?.data?.token);
+        toast.success(res?.data?.message || "Logged in successfully")
         localStorage.setItem("token", res?.data?.data?.token);
         navigate("/")
       } catch(err) {
+        toast.error(err.data.message)
         console.log(err)
       }
     },

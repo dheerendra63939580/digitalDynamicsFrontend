@@ -1,6 +1,13 @@
 import { useState } from "react";
 import "./Cart.css"
+import { useSelector } from "react-redux";
+import { accessProfile } from "../reduxToolkit/slices/userSlice";
+import { AddAddress } from "../pages/addresses/AddAddress";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
+    const profile = useSelector(accessProfile);
+    const navigate = useNavigate()
+    const [showAddAddress, setShowAddAddress] = useState(false);
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("cartItem") || "[]"));
     const subTotal = cartItems?.reduce((acc, value) => acc + value?.price * value?.quantity, 0);
     function increaseQuantity(id) {
@@ -18,11 +25,21 @@ const Cart = () => {
     }
     if(cartItems?.length === 0)
         return <span>Cart is empty</span>
+    const handleCheckout = async () => {
+        if(!profile?.name)
+            navigate("/login")
+        if(!profile?.addresses?.length) {
+            handleShowAddress()
+        }
+    }
+    const handleShowAddress = () => {
+        setShowAddAddress(!showAddAddress)
+    }
     return(
         <div className="m-auto  lg:w-[80%]">
             <h1 className="text-xl p-2 mb-2">Cart</h1>
             <div className="flex gap-4 justify-between flex-col md:flex-row">
-                <div className="overflow-scroll">
+                <div className="overflow-x-scroll">
                     <table className="cart-table bg-gray-100">
                                 <thead className="bg-blue-500">
                                     <tr className="py-2">
@@ -71,10 +88,16 @@ const Cart = () => {
                                 <span>Total</span> {subTotal}
                             </div>
                             <span className="text-gray-400 my-3 block">Have a coupon ?</span>
-                            <button className="text-white bg-black px-4 py-2 rounded-lg mb-3">Proceed To Checkout</button>
+                            <button 
+                                className="text-white bg-black px-4 py-2 rounded-lg mb-3"
+                                onClick={handleCheckout}
+                                >
+                                Proceed To Checkout
+                            </button>
                         </div>
                 </div>
             </div>
+            {showAddAddress && <AddAddress isOpen={showAddAddress} onClose={handleShowAddress} /> }
         </div>
     )
 }

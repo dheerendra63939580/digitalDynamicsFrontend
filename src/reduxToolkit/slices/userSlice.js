@@ -8,6 +8,7 @@ const authSlice = createSlice({
         mobile: "",
         id: "",
         loading: false,
+        addresses: []
     },
     reducers: {
         setProfile: (state, action) => {
@@ -15,6 +16,7 @@ const authSlice = createSlice({
             state.email = action.payload.email;
             state.mobile = action.payload.mobile;
             state.id = action.payload._id;
+            state.addresses = action.payload.address;
         },
         logout: (state) => {
             state.name = "";
@@ -22,6 +24,7 @@ const authSlice = createSlice({
             state.mobile = ""
             state.id = ""
             localStorage.removeItem("token")
+            address: []
         },
         setLoading: (state, action) => {
             state.loading = action.payload;

@@ -1,7 +1,7 @@
 function Loading() {
 
     return(
-        <span className="px-3 py-2 text-center bg-gray-700 text-white">Loading...</span>
+        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
     )
 }
 export {Loading}

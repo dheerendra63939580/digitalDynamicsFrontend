@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { postApi } from '../api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -30,12 +31,14 @@ const Signup = () => {
         .required('Confirm Password is required'),
     }),
     onSubmit: async (values) => {
-      console.log('Signup data:', values);
       try {
         const res = await postApi('user/signup', values);
+        console.log(res?.validationSchema)
+        toast.success(res?.data?.message || "Account created successfully");
         navigate("/login");
       } catch(err) {
-        console.log(err)
+        toast.error(err?.data?.message);
+        console.log("err", err)
       }
     },
   });

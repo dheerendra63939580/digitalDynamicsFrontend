@@ -49,6 +49,14 @@ export const postApi = async (endpoint, payload) => {
         const res = await api.post(endpoint, payload)
         return res;
     } catch(err) {
-        throw new Error(err)
+        throw err?.response
     }
+}
+export const patchApi = async (endpoint, payload) => {
+  try {
+    const res = await api.patch(endpoint, payload);
+    return res;
+  } catch(err) {
+    throw new Error(err)
+  }
 }
