@@ -34,7 +34,7 @@ const Navbar = () => {
                     </span>
                     <div className="flex gap-6">
                         <Link to="/">Shipping & Return</Link>
-                        <Link to="/">Tract order</Link>
+                        <Link to="/">Track order</Link>
                     </div>
                 </div>
                 <div className="flex justify-between max-[378px]:flex-col gap-2">
@@ -78,7 +78,7 @@ const Navbar = () => {
                             <span>{profile?.name}</span>
                             <img src={arrowDown} alt="" className={`w-6 ${showEditButton && "rotate-180"}`}/>
                            {showEditButton && 
-                           <div className="bg-gray-200 px-2 py-1 absolute flex flex-col gap-2 right-0 left-0 -bottom-[68px] rounded-lg"
+                           <div className="bg-gray-200 px-2 py-1 absolute flex flex-col gap-1 right-0 left-0 top-[42px] rounded-lg"
                             onClick={(e) => e.stopPropagation()}
                            >
                                 <button
@@ -86,6 +86,11 @@ const Navbar = () => {
                                 >
                                     Edit Profile
                                 </button>
+                                <hr className="border border-gray-500" />
+                                <Link to="/address">
+                                    <div className="text-black text-center">Addresses</div>
+                                </Link>
+                                <hr className="border border-gray-500" />
                                 <button
                                     onClick={() => dispatch(logout())}
                                 >
@@ -100,7 +105,7 @@ const Navbar = () => {
                         editProfile ? "translate-x-0" : "translate-x-full"
                     } rounded-lg`}
                 >
-                    <EditProfile handleClose={() => setEditProfile(false)} />
+                    {editProfile && <EditProfile handleClose={() => setEditProfile(false)} /> }
                 </div>
             </nav>
             <div className="block md:hidden">

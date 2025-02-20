@@ -46,13 +46,15 @@ export const NavbarMobile = () => {
                     <img src={profile} alt="" className="w-10"
                         onClick={() => setShowEditButton(!showEditButton)}
                     />
-                    <div className={`bg-gray-200 px-2 py-1 absolute flex flex-col gap-2 right-0 rounded-lg ${!showEditButton && "hidden"}`}>
+                    <div className={`bg-gray-200 px-2 py-1 absolute flex flex-col gap-1 right-0 rounded-lg ${!showEditButton && "hidden"}`}>
                         <span className="whitespace-nowrap">{userProfile?.name}</span>
+                        <hr className="border border-gray-500" />
                         <button
                             onClick={() => {setEditProfile(true); setShowEditButton(false)}}
                         >
                             Edit Profile
                         </button>
+                        <hr className="border border-gray-500" />
                         <button
                             onClick={() => dispatch(logout())}
                         >

@@ -5,8 +5,14 @@ import { Layout } from "./components/Layout";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { accessProfile } from "./reduxToolkit/slices/userSlice";
+import { ViewAddress } from "./pages/addresses/ViewAddress";
 
 function App() {
+  const profile = useSelector(accessProfile);
+  if(profile?.name)
+    routes.push({path: "/address", element: <ViewAddress/>})
   return (
     <>
       <Routes>
