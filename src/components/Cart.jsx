@@ -39,7 +39,7 @@ const Cart = () => {
         <div className="m-auto  lg:w-[80%]">
             <h1 className="text-xl p-2 mb-2">Cart</h1>
             <div className="flex gap-4 justify-between flex-col md:flex-row">
-                <div className="overflow-x-scroll">
+                <div className="">
                     <table className="cart-table bg-gray-100">
                                 <thead className="bg-blue-500">
                                     <tr className="py-2">

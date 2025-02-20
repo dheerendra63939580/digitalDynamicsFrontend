@@ -96,15 +96,15 @@ const Navbar = () => {
                     </div>
                 </ul>
                 <div
-                className={`absolute z-50 bg-white right-2 top-2 transition-transform duration-300 ${
-                    editProfile ? "translate-x-0" : "translate-x-full"
-                } px-4 py-2 rounded-lg`}
+                    className={`absolute z-50 bg-white right-2 top-2 transition-transform duration-300 ${
+                        editProfile ? "translate-x-0" : "translate-x-full"
+                    } rounded-lg`}
                 >
-                <EditProfile handleClose={() => setEditProfile(false)} />
-            </div>
+                    <EditProfile handleClose={() => setEditProfile(false)} />
+                </div>
             </nav>
             <div className="block md:hidden">
-                <NavbarMobile/>
+                <NavbarMobile />
             </div>
         </>
     )
