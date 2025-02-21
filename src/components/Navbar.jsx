@@ -22,7 +22,7 @@ const Navbar = () => {
             const res = await getApi("/user/profile");
             dispatch(setProfile(res?.data?.data));
         } catch(err) {
-            dispatch(logout())
+            console.log(err)
         }
     }
     return (

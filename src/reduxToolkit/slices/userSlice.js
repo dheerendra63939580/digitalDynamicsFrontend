@@ -16,7 +16,7 @@ const authSlice = createSlice({
             state.email = action.payload.email;
             state.mobile = action.payload.mobile;
             state.id = action.payload._id;
-            state.addresses = action.payload.address;
+            state.addresses = action.payload.addresses;
         },
         logout: (state) => {
             state.name = "";
@@ -24,7 +24,7 @@ const authSlice = createSlice({
             state.mobile = ""
             state.id = ""
             localStorage.removeItem("token")
-            address: []
+            state.addresses = []
         },
         setLoading: (state, action) => {
             state.loading = action.payload;

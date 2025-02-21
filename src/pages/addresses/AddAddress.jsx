@@ -4,10 +4,11 @@ import { addressSchema } from "../../yup";
 import { useSelector } from "react-redux";
 import { accessProfile } from '../../reduxToolkit/slices/userSlice'
 import { postApi } from '../../api'
-export function AddAddress({ isOpen, onClose }) {
+import toast from "react-hot-toast";
+export function AddAddress({ isOpen, onClose, initialValues }) {
     const profile = useSelector(accessProfile)
     const formik = useFormik({
-        initialValues: {
+        initialValues: initialValues ? initialValues : {
             fullName: "",
             phone: "",
             street: "",
@@ -20,7 +21,7 @@ export function AddAddress({ isOpen, onClose }) {
         onSubmit: async (values) => {
             try {
                 const res = postApi(`/user/add_address/${profile?.id}`, values);
-                console.log(res);
+                toast.success(res?.data?.message)
             } catch(err) {
                 console.log(err)
             }
