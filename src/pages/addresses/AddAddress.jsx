@@ -3,30 +3,40 @@ import { Modal } from "../../Modal";
 import { addressSchema } from "../../yup";
 import { useSelector } from "react-redux";
 import { accessProfile } from '../../reduxToolkit/slices/userSlice'
-import { postApi } from '../../api'
+import { postApi, putApi } from '../../api'
 import toast from "react-hot-toast";
+import { Loading } from "../../components/Loading";
+import { useGetProfile } from "../../customHooks/useGetProfile";
+
 export function AddAddress({ isOpen, onClose, initialValues }) {
     const profile = useSelector(accessProfile)
+    const {getProfile} = useGetProfile()
     const formik = useFormik({
-        initialValues: initialValues ? initialValues : {
-            fullName: "",
-            phone: "",
-            street: "",
-            city: "",
-            state: "",
-            postalCode: "",
-            country: ""
+        initialValues: {
+            fullName: initialValues?.fullName || "",
+            phone: initialValues?.phone || "",
+            street: initialValues?.street || "",
+            city: initialValues?.city || "",
+            state: initialValues?.state || "",
+            postalCode: initialValues?.postalCode || "",
+            country: initialValues?.country || ""
         },
         validationSchema: addressSchema,
         onSubmit: async (values) => {
             try {
-                const res = postApi(`/user/add_address/${profile?.id}`, values);
+                console.log("kjdskajdflkjsdlkjfksljdfsjafdk")
+                const res = initialValues ? await putApi(`user/update_address/${profile?.id}/${initialValues?._id}`, values) : 
+                await postApi(`/user/add_address/${profile?.id}`, values);
                 toast.success(res?.data?.message)
+                getProfile()
+                onClose()
             } catch(err) {
                 console.log(err)
+                toast.error(err?.response?.data?.message)
             }
         }
     })
+   
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <div>
@@ -165,9 +175,9 @@ export function AddAddress({ isOpen, onClose, initialValues }) {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
+                        className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition flex justify-center"
                     >
-                        Save Address
+                        {profile?.loading ? <Loading/> : (initialValues ? "Update" : "Save Address")}
                     </button>
                 </form>
             </div>

@@ -4,27 +4,19 @@ import "./Navbar.css"
 import search from '../assets/icons/search.png'
 import arrowDown from '../assets/icons/downArrow.png'
 import { NavbarMobile } from './NavbarMobile'
-import { getApi } from '../api'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { accessProfile, logout, setProfile } from '../reduxToolkit/slices/userSlice'
 import { EditProfile } from '../pages/EditUserProfile'
+import { useGetProfile } from '../customHooks/useGetProfile'
 const Navbar = () => {
     const profile = useSelector(accessProfile)
-    const dispatch = useDispatch();
+    const {getProfile} = useGetProfile()
     const [showEditButton, setShowEditButton] = useState(false);
     const [editProfile, setEditProfile] = useState(false);
     useEffect(() => {
         if(localStorage.getItem("token"))
             getProfile()
     }, [])
-    const getProfile = async () => {
-        try {
-            const res = await getApi("/user/profile");
-            dispatch(setProfile(res?.data?.data));
-        } catch(err) {
-            console.log(err)
-        }
-    }
     return (
         <>
             <nav className="nav-container flex-col gap-3 lg:p-[10px_80px] sm:p-[10px_15px] p-[10px_16px] sticky top-0 md:flex hidden">

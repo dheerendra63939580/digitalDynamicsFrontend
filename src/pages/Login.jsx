@@ -4,8 +4,10 @@ import * as Yup from "yup"
 import { postApi } from '../api';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { Loading } from '../components/Loading';
 const Login = () => {
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if(localStorage.getItem("token"))
       navigate("/")
@@ -21,12 +23,15 @@ const Login = () => {
       }),
     onSubmit: async (values) => {
       try {
+        setLoading(true)
         const res = await postApi("/user/login", values)
         toast.success(res?.data?.message || "Logged in successfully")
         localStorage.setItem("token", res?.data?.data?.token);
+        setLoading(false);
         navigate("/")
       } catch(err) {
         toast.error(err.data.message)
+        setLoading(false)
         console.log(err)
       }
     },
@@ -80,9 +85,9 @@ const Login = () => {
             <div>
                 <button
                     type="submit"
-                    className="w-full p-3 text-lg text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200"
+                    className="w-full p-3 text-lg text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200 flex justify-center"
                 >
-                    Login
+                    { loading ? <Loading/> : "Login" }
                 </button>
             </div>
         </form>

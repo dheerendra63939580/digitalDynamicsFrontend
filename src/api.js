@@ -3,7 +3,8 @@ import { store } from "./reduxToolkit/store";
 import { logout, setLoading } from "./reduxToolkit/slices/userSlice";
 const baseUrl = "http://localhost:3001";
 const api = axios.create({
-    baseURL: baseUrl
+    baseURL: baseUrl,
+    timeout: 10000,
 })
 api.interceptors.request.use(
   (config) => {
@@ -30,6 +31,7 @@ api.interceptors.response.use(
       if (error.response) {
         if (error.response.status === 401) {
           store.dispatch(logout())
+           window.location.href = "/"
         }
       }
       return Promise.reject(error);
@@ -58,5 +60,23 @@ export const patchApi = async (endpoint, payload) => {
     return res;
   } catch(err) {
     throw new Error(err)
+  }
+}
+
+export const putApi = async (endpoint, payload) => {
+  try {
+    const res = await api.put(endpoint, payload);
+    return res;
+  } catch(err) {
+    throw err
+  }
+}
+
+export const deleteApi = async (endpoint) => {
+  try {
+    const res = await api.delete(endpoint);
+    return res;
+  } catch(err) {
+    throw err
   }
 }

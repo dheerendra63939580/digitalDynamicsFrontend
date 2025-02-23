@@ -2,13 +2,14 @@ import './Navbar.css'
 import hamburger from '../assets/icons/hamburger.png'
 import close from '../assets/icons/close.png'
 import profile from '../assets/icons/profile.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { accessProfile, logout } from '../reduxToolkit/slices/userSlice'
 import { EditProfile } from '../pages/EditUserProfile'
 export const NavbarMobile = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const userProfile = useSelector(accessProfile)
     const [hamb, setHamburger] = useState(false);
     const [showEditButton, setShowEditButton] = useState(false);
@@ -53,6 +54,12 @@ export const NavbarMobile = () => {
                             onClick={() => {setEditProfile(true); setShowEditButton(false)}}
                         >
                             Edit Profile
+                        </button>
+                        <hr className="border border-gray-500"/>
+                        <button
+                            onClick={() => {setShowEditButton(false); navigate("/address"); }}
+                        >
+                            Addresses
                         </button>
                         <hr className="border border-gray-500" />
                         <button

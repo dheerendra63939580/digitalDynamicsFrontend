@@ -25,6 +25,7 @@ const authSlice = createSlice({
             state.id = ""
             localStorage.removeItem("token")
             state.addresses = []
+            window.location.href="/"
         },
         setLoading: (state, action) => {
             state.loading = action.payload;

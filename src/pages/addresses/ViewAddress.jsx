@@ -2,12 +2,31 @@ import { useState } from "react";
 import { AddAddress } from "./AddAddress";
 import { useSelector } from "react-redux";
 import { accessProfile } from "../../reduxToolkit/slices/userSlice";
+import toast from "react-hot-toast";
+import { deleteApi } from "../../api";
+import { useGetProfile } from "../../customHooks/useGetProfile";
 
 export function ViewAddress() {
     const profile = useSelector(accessProfile)
+    const {getProfile} = useGetProfile()
     const [addAddress, setAddAddress] = useState(false);
     const [editAddress, setEditAddress] = useState(false);
     const [initialValues, setInitialValues] = useState({});
+    const deleteAddress = async (addressId) => {
+        try {
+           await toast.promise(
+                deleteApi(`/user/delete_address/${profile?.id}/${addressId}`),
+                {
+                    loading: 'Loading',
+                    success: 'Address deleted successfully',
+                    error: 'Error occured',
+                }
+            )
+            getProfile()
+        } catch(err) {
+            console.log(err)
+        }
+    }
     return (
         <div className="bg-white m-auto p-4 lg:w-[80%]">
             <div className="flex justify-between items-center flex-wrap gap-2 mb-2">
@@ -41,6 +60,7 @@ export function ViewAddress() {
                     <span 
                         style={{backgroundColor: "hsla(0, 50%, 50%, .4)", color: "hsla(0, 50%, 50%, 1)"}}
                         className="px-3 py-2 rounded-lg cursor-pointer"
+                        onClick={() => deleteAddress(value?._id)}
                         >
                             Remove
                     </span>

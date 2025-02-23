@@ -6,8 +6,10 @@ import * as Yup from 'yup'
 import { useState } from "react";
 import { patchApi } from "../api";
 import { Loading } from "../components/Loading";
+import { useGetProfile } from "../customHooks/useGetProfile";
 export function EditProfile({handleClose}) {
   const profile = useSelector(accessProfile);
+  const {getProfile} = useGetProfile()
   const [isUpdatePassword, setIsUpdatePassword] = useState(false)
   const formik = useFormik({
     initialValues: {
@@ -38,7 +40,7 @@ export function EditProfile({handleClose}) {
       }
       try {
         const res = await patchApi("user/update_profile", payload);
-        console.log(res)
+        getProfile()
         handleClose()
       } catch(err) {
         console.log(err);

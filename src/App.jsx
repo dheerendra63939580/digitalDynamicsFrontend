@@ -11,7 +11,7 @@ import { ViewAddress } from "./pages/addresses/ViewAddress";
 
 function App() {
   const profile = useSelector(accessProfile);
-  if(profile?.name)
+  if(profile?.name || localStorage.getItem("token"))
     routes.push({path: "/address", element: <ViewAddress/>})
   return (
     <>
