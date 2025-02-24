@@ -63,14 +63,14 @@ function ListingPage() {
                 {aboutProduct?.[category]?.["description"]}
             </p>
       
-            <div className="mt-3 flex flex-wrap">
+            <div className="mt-3 flex flex-wrap gap-3 justify-between">
                 {allProduct?.map((value) => (
-                    <div className="flex flex-col gap-2 bg-gray-200 p-2 border-2 border-solid rounded-lg shadow-[4px_4px_3px_#bbb]" 
+                    <div className="flex flex-col gap-2 bg-gray-200 p-2 border-2 border-solid rounded-lg shadow-[4px_4px_3px_#bbb] grow cursor-pointer" 
                         key={`listing${value?._id}`}
                         onClick={() => navigate(`/product/${value?.category}/${value?._id}`)}
                         >
                         <img src={value?.image} alt="" 
-                            className="w-[200px] h-[200px] object-contain border-none rounded-t-lg"
+                            className="w-[100%] h-[200px] object-cover border-none rounded-t-lg"
                         />
                         <span>{value?.ratings}</span>
                         <span className="font-medium">{value?.name}</span>

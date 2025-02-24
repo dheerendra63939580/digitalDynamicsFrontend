@@ -49,7 +49,9 @@ export function EditProfile({handleClose}) {
   });
 
   return (
-    <div className="max-h-screen overflow-auto px-4 py-2">
+    <div className="overflow-auto px-4 py-2"
+      style={{maxHeight: "calc(100vh - 20px)"}}
+    >
       <div className="flex justify-end">
         <img 
             src={close} 

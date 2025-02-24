@@ -74,13 +74,15 @@ const Navbar = () => {
                             onClick={(e) => e.stopPropagation()}
                            >
                                 <button
-                                    onClick={() => setEditProfile(true)}
+                                    onClick={() => {setEditProfile(true); setShowEditButton(false)}}
                                 >
                                     Edit Profile
                                 </button>
                                 <hr className="border border-gray-500" />
                                 <Link to="/address">
-                                    <div className="text-black text-center">Addresses</div>
+                                    <div className="text-black text-center"
+                                     onClick={() => setShowEditButton(false)}
+                                    >Addresses</div>
                                 </Link>
                                 <hr className="border border-gray-500" />
                                 <button

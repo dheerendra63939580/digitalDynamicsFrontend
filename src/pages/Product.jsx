@@ -39,13 +39,13 @@ const ProductPage = () => {
    if(loading)
     return <Loading/>
     return (
-        <Card classes="m-auto  lg:w-[80%] flex flex-col gap-6 md:flex-row">
-            <div>
+        <Card classes="m-auto  lg:w-[80%] flex flex-col gap-6 md:flex-row px-4 py-2 md:justify-between md:items-center">
+            <div className="flex justify-between items-center grow">
                 <img src={product?.image} alt="" 
-                    className=' h-[500px]'
+                    className=' max-h-[500px] object-cover w-full'
                 />
             </div>
-            <div className="bg-blue-100 px-3 py-2 rounded-lg flex flex-col gap-2.5">
+            <div className="bg-blue-100 px-3 py-2 rounded-lg flex flex-col gap-2.5 h-fit">
                 <div className="flex flex-col gap-5">
                     <h1 className="text-2xl">{product?.name}</h1>
                     <p className="text-xl">{product?.description}</p>
