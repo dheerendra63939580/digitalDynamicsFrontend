@@ -4,9 +4,12 @@ import { useSelector } from "react-redux";
 import { accessProfile } from "../reduxToolkit/slices/userSlice";
 import { AddAddress } from "../pages/addresses/AddAddress";
 import { useNavigate } from "react-router-dom";
+import { postApi } from "../api";
+import toast from "react-hot-toast";
 const Cart = () => {
     const profile = useSelector(accessProfile);
     const navigate = useNavigate()
+    const [addressId, setAddressId] = useState("");
     const [showAddAddress, setShowAddAddress] = useState(false);
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("cartItem") || "[]"));
     const subTotal = cartItems?.reduce((acc, value) => acc + value?.price * value?.quantity, 0);
@@ -29,7 +32,22 @@ const Cart = () => {
         if(!profile?.name)
             navigate("/login")
         if(!profile?.addresses?.length) {
-            handleShowAddress()
+            handleShowAddress();
+            return;
+        }
+        let payload = [];
+        cartItems.forEach(({_id, quantity, price}) => payload.push({_id, quantity, price}))
+        try {
+            const res = await postApi(`/product/purchase/${profile.id}`, payload);
+            toast.success(res.data.message);
+            const finalIds = [...res.data.data.failedProducts, ...res.data.data.purchasedProducts]
+            const cartItem = cartItems.filter(({ _id }) => !finalIds.includes(_id));
+            localStorage.setItem("cartItem", JSON.stringify(cartItem));
+            console.log({cartItem})
+            setCartItems([...cartItem])
+        } catch(err) {
+            console.log(err)
+            toast.error("err", err.data.message)
         }
     }
     const handleShowAddress = () => {

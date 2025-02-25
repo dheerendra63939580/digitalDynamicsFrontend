@@ -15,7 +15,7 @@ export const NavbarMobile = () => {
     const [showEditButton, setShowEditButton] = useState(false);
     const [editProfile, setEditProfile] = useState(false)
     return (
-        <nav className="nav-container flex justify-between items-center px-2 fixed top-0 left-2 right-2 min-h-10">
+        <nav className="nav-container flex justify-between items-center px-2 fixed top-2 left-2 right-2 min-h-10">
             <div className="relative">
                 <img src={hamburger} alt="" className={`w-10 ${hamb && "invisible"}`}
                     onClick={() => setHamburger(true)}
