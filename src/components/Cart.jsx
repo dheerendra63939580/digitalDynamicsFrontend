@@ -7,10 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { postApi } from "../api";
 import toast from "react-hot-toast";
 import close from "../assets/icons/close.png"
+import { ViewAddress } from "../pages/addresses/ViewAddress";
+import { Modal } from "../Modal";
 const Cart = () => {
     const profile = useSelector(accessProfile);
     const navigate = useNavigate()
     const [addressId, setAddressId] = useState("");
+    console.log("id", addressId)
+    const [showAddressOption, setshowAddressOption] = useState(false);
     const [showAddAddress, setShowAddAddress] = useState(false);
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("cartItem") || "[]"));
     const subTotal = cartItems?.reduce((acc, value) => acc + value?.price * value?.quantity, 0);
@@ -60,6 +64,9 @@ const Cart = () => {
 
     const handleShowAddress = () => {
         setShowAddAddress(!showAddAddress)
+    }
+    const handleAddressOption = () => {
+        setshowAddressOption(!showAddressOption)
     }
     return(
         <div className="m-auto  lg:w-[80%]">
@@ -117,6 +124,12 @@ const Cart = () => {
                                 <span>Total</span> {subTotal}
                             </div>
                             <span className="text-gray-400 my-3 block">Have a coupon ?</span>
+                            <span 
+                                className="text-gray-400 my-3 block underline cursor-pointer"
+                                onClick={handleAddressOption}
+                            >
+                                Want to change address
+                            </span>
                             <button 
                                 className="text-white bg-black px-4 py-2 rounded-lg mb-3"
                                 onClick={handleCheckout}
@@ -126,7 +139,10 @@ const Cart = () => {
                         </div>
                 </div>
             </div>
-            {showAddAddress && <AddAddress isOpen={showAddAddress} onClose={handleShowAddress} /> }
+            { showAddAddress && <AddAddress isOpen={showAddAddress} onClose={handleShowAddress} /> }
+            { showAddressOption && <Modal isOpen={showAddressOption} onClose={handleAddressOption}>
+                <ViewAddress selectedId={addressId} setAddressId={setAddressId} onClose={handleAddressOption} isOpen={showAddressOption} />
+            </Modal>}
         </div>
     )
 }

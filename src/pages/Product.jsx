@@ -82,7 +82,7 @@ const ProductPage = () => {
                         </span>
                     </div>
                     <span className="bg-black text-white px-4 py-2 rounded-lg cursor-pointer"
-                        onClick={() => AddToCart(count, product)}
+                        onClick={() => AddToCart(count, product, true)}
                     >
                         Add To Cart
                     </span>

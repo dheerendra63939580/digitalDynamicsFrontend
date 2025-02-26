@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { deleteApi } from "../../api";
 import { useGetProfile } from "../../customHooks/useGetProfile";
 
-export function ViewAddress() {
+export function ViewAddress({selectedId, setAddressId, onClose, isOpen}) {
     const profile = useSelector(accessProfile)
     const {getProfile} = useGetProfile()
     const [addAddress, setAddAddress] = useState(false);
@@ -27,6 +27,12 @@ export function ViewAddress() {
             console.log(err)
         }
     }
+    const handleAddressId = (id) => {
+        setAddressId(id);
+        toast.success("Address selected successfully");
+        onClose()
+
+    }
     return (
         <div className="bg-white m-auto p-4 lg:w-[80%]">
             <div className="flex justify-between items-center flex-wrap gap-2 mb-2">
@@ -42,7 +48,15 @@ export function ViewAddress() {
             <hr />
            {profile?.addresses?.map((value, index) =>  (
             <div className="flex flex-col gap-1 mt-3" key={`viewAddress${index + 1}`}>
-                <h1>{value?.fullName}</h1>
+                <div className="flex gap-2 mb-3">
+                    <span>{value?.fullName}</span>
+                    {isOpen && <input 
+                        type="checkbox"
+                        className="-mb-1"
+                        checked={value?._id === selectedId}
+                        onChange={() => handleAddressId(value?._id)}
+                    />}
+                </div>
                 <span>
                     {value?.street}, {value?.city}, {value?.state} 227411
                     {}
