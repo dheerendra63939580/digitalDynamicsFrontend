@@ -6,6 +6,7 @@ import { AddAddress } from "../pages/addresses/AddAddress";
 import { useNavigate } from "react-router-dom";
 import { postApi } from "../api";
 import toast from "react-hot-toast";
+import close from "../assets/icons/close.png"
 const Cart = () => {
     const profile = useSelector(accessProfile);
     const navigate = useNavigate()
@@ -50,14 +51,20 @@ const Cart = () => {
             toast.error("err", err.data.message)
         }
     }
+    const removeItemFromCart = (id) => {
+        const updatedCartItem = cartItems.filter((value) => value?._id !== id);
+        toast.success("Product removed successfully");
+        localStorage?.setItem("cartItem", JSON.stringify(updatedCartItem));
+        setCartItems(updatedCartItem);
+    }
+
     const handleShowAddress = () => {
         setShowAddAddress(!showAddAddress)
     }
     return(
         <div className="m-auto  lg:w-[80%]">
             <h1 className="text-xl p-2 mb-2">Cart</h1>
-            <div className="flex gap-4 justify-between flex-col md:flex-row">
-                <div className="">
+            <div className="flex gap-4 justify-center flex-col md:flex-row">
                     <table className="cart-table bg-gray-100">
                                 <thead className="bg-blue-500">
                                     <tr className="py-2">
@@ -71,9 +78,14 @@ const Cart = () => {
                                     {cartItems?.map((value, index) => (
                                         <tr key={`cart ${index}`}>
                                             <td>
-                                                <div className="grid grid-cols-2 gap-2 items-center">
+                                                <div className="flex gap-2 items-center">
+                                                    <img 
+                                                        src={close} 
+                                                        className="bg-red-300 w-8 cursor-pointer"
+                                                        onClick={() => removeItemFromCart(value?._id)}
+                                                    />
                                                     <img src={value?.image} alt="" className="w-24 aspect-square sm:object-contain" />
-                                                    <span>{value?.description}</span>
+                                                    <span>{value?.name}</span>
                                                 </div>
                                             </td>
                                             <td className="whitespace-nowrap">{value?.price} INR</td>
@@ -95,7 +107,6 @@ const Cart = () => {
                                     ))}
                                 </tbody>
                     </table>
-                </div>
                 <div className="border border-gray-400 min-w-[250px] h-fit md:sticky md:top-[133px] ">
                     <h1 className="bg-blue-500 pl-2 py-2">Cart Totals</h1>
                         <div className="px-2">

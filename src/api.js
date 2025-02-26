@@ -43,7 +43,7 @@ export const getApi = async (endpoint) => {
         const res = await api.get(endpoint);
         return res;
     } catch(err) {
-        throw new Error(err)
+        throw err?.response;
     }
 }
 export const postApi = async (endpoint, payload) => {
@@ -59,7 +59,7 @@ export const patchApi = async (endpoint, payload) => {
     const res = await api.patch(endpoint, payload);
     return res;
   } catch(err) {
-    throw new Error(err)
+    throw err?.response
   }
 }
 
@@ -68,7 +68,7 @@ export const putApi = async (endpoint, payload) => {
     const res = await api.put(endpoint, payload);
     return res;
   } catch(err) {
-    throw err
+    throw err?.response
   }
 }
 
@@ -77,6 +77,6 @@ export const deleteApi = async (endpoint) => {
     const res = await api.delete(endpoint);
     return res;
   } catch(err) {
-    throw err
+    throw err?.response
   }
 }

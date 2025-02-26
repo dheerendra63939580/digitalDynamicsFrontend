@@ -1,4 +1,6 @@
-export const AddToCart = (quantity, item) => {
+import toast from "react-hot-toast";
+
+export const AddToCart = (quantity, item, notification=false) => {
     const product = JSON.parse(JSON.stringify(item))
     product.quantity = quantity;
     console.log(product)
@@ -9,4 +11,5 @@ export const AddToCart = (quantity, item) => {
     else
         cartItems.push(product);
     localStorage.setItem("cartItem", JSON.stringify(cartItems));
+    notification && toast.success("Product added to cart");
 }
