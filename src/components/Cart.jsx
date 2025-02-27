@@ -47,10 +47,20 @@ const Cart = () => {
         let payload = [];
         cartItems.forEach(({_id, quantity, price}) => payload.push({_id, quantity, price}))
         try {
+            payload = {products: payload, addressId}
             const res = await postApi(`/product/purchase/${profile.id}`, payload);
             toast.success(res.data.message);
-            const finalIds = [...res.data.data.failedProducts, ...res.data.data.purchasedProducts]
-            const cartItem = cartItems.filter(({ _id }) => !finalIds.includes(_id));
+            const failedIds = res.data.data.failedProducts
+            const cartItem = cartItems.filter(({ _id }) => !res.data.data.purchasedProducts.includes(_id));
+            console.log(failedIds)
+            for(let failedValues of failedIds) {
+                for(let value of cartItem) {
+                    if(failedValues?._id === value?._id) {
+                        value.failedReason = failedValues?.reason;
+                        break;
+                    }
+                }
+            }
             localStorage.setItem("cartItem", JSON.stringify(cartItem));
             console.log({cartItem})
             setCartItems([...cartItem])
