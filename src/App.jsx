@@ -8,11 +8,15 @@ import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { accessProfile } from "./reduxToolkit/slices/userSlice";
 import { ViewAddress } from "./pages/addresses/ViewAddress";
+import { Order } from "./pages/Order"
 
 function App() {
   const profile = useSelector(accessProfile);
-  if(profile?.name || localStorage.getItem("token"))
+  if(profile?.name || localStorage.getItem("token")) {
     routes.push({path: "/address", element: <ViewAddress/>})
+    routes.push({path: "/order", element: <Order/>})
+  }
+  
   return (
     <>
       <Routes>

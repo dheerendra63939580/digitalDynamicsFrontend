@@ -84,6 +84,12 @@ const Navbar = () => {
                                      onClick={() => setShowEditButton(false)}
                                     >Addresses</div>
                                 </Link>
+                                <hr className="border border-gray-500"/>
+                                <Link to="/order">
+                                    <div className="text-black text-center"
+                                     onClick={() => setShowEditButton(false)}
+                                    >View Orderes</div>
+                                </Link>
                                 <hr className="border border-gray-500" />
                                 <button
                                     onClick={() => dispatch(logout())}

@@ -34,6 +34,10 @@ const Cart = () => {
     if(cartItems?.length === 0)
         return <span>Cart is empty</span>
     const handleCheckout = async () => {
+        if(!addressId) {
+            toast.error("Select address");
+            return;
+        }
         if(!profile?.name)
             navigate("/login")
         if(!profile?.addresses?.length) {
@@ -128,7 +132,7 @@ const Cart = () => {
                                 className="text-gray-400 my-3 block underline cursor-pointer"
                                 onClick={handleAddressOption}
                             >
-                                Want to change address
+                                Select address
                             </span>
                             <button 
                                 className="text-white bg-black px-4 py-2 rounded-lg mb-3"
