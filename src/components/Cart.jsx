@@ -100,7 +100,8 @@ const Cart = () => {
                                 <tbody>
                                     {cartItems?.map((value, index) => (
                                         <tr key={`cart ${index}`}>
-                                            <td>
+                                            <td className="relative">
+                                                {value?.failedReason && <span className="text-red-600 absolute bottom-0"><span className="bubble"></span>{value?.failedReason}</span>}
                                                 <div className="flex gap-2 items-center">
                                                     <img 
                                                         src={close} 
@@ -139,7 +140,7 @@ const Cart = () => {
                             <div className="p-2 border-b-gray-300 border-b-2">
                                 <span>Total</span> {subTotal}
                             </div>
-                            <span className="text-gray-400 my-3 block">Have a coupon ?</span>
+                            <span className="text-gray-400 my-3 block bg-gray-600">Have a coupon ?</span>
                             <span 
                                 className="text-gray-400 my-3 block underline cursor-pointer"
                                 onClick={handleAddressOption}
