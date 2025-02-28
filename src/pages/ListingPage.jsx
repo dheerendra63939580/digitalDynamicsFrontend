@@ -42,7 +42,6 @@ function ListingPage() {
         try {
             setLoading(true);
             const res = await getApi(`/product?category=${category}`);
-            console.log(res);
             setLoading(false);
             setAllProduct(res?.data?.data);
         } catch(err) {

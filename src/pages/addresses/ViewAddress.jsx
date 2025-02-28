@@ -5,6 +5,7 @@ import { accessProfile } from "../../reduxToolkit/slices/userSlice";
 import toast from "react-hot-toast";
 import { deleteApi } from "../../api";
 import { useGetProfile } from "../../customHooks/useGetProfile";
+import { ShowEmpty } from "../../components/ShowEmpty";
 
 export function ViewAddress({selectedId, setAddressId, onClose, isOpen}) {
     const profile = useSelector(accessProfile)
@@ -19,7 +20,7 @@ export function ViewAddress({selectedId, setAddressId, onClose, isOpen}) {
                 {
                     loading: 'Loading',
                     success: 'Address deleted successfully',
-                    error: 'Error occured',
+                    error: (err) => err?.data?.message || "Error occured",
                 }
             )
             getProfile()
@@ -33,6 +34,8 @@ export function ViewAddress({selectedId, setAddressId, onClose, isOpen}) {
         onClose()
 
     }
+    if(profile?.addresses === 0) 
+        return ( <ShowEmpty>No address found</ShowEmpty> )
     return (
         <div className="bg-white m-auto p-4 lg:w-[80%]">
             <div className="flex justify-between items-center flex-wrap gap-2 mb-2">

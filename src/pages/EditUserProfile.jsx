@@ -7,6 +7,7 @@ import { useState } from "react";
 import { patchApi } from "../api";
 import { Loading } from "../components/Loading";
 import { useGetProfile } from "../customHooks/useGetProfile";
+import toast from "react-hot-toast";
 export function EditProfile({handleClose}) {
   const profile = useSelector(accessProfile);
   const {getProfile} = useGetProfile()
@@ -39,9 +40,10 @@ export function EditProfile({handleClose}) {
         payload = {mobile: values.mobile, name: values.name, isUpdatePassword, id: profile.id}
       }
       try {
-        const res = await patchApi("user/update_profile", payload);
+        const res = await patchApi("/user/update_profile", payload);
         getProfile()
         handleClose()
+        toast.success(res?.data?.message || "Details updated successfully")
       } catch(err) {
         console.log(err);
       }

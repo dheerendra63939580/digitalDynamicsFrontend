@@ -24,7 +24,6 @@ export function AddAddress({ isOpen, onClose, initialValues }) {
         validationSchema: addressSchema,
         onSubmit: async (values) => {
             try {
-                console.log("kjdskajdflkjsdlkjfksljdfsjafdk")
                 const res = initialValues ? await putApi(`user/update_address/${profile?.id}/${initialValues?._id}`, values) : 
                 await postApi(`/user/add_address/${profile?.id}`, values);
                 toast.success(res?.data?.message)

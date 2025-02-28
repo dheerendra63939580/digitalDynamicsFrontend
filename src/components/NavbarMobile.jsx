@@ -15,7 +15,7 @@ export const NavbarMobile = () => {
     const [showEditButton, setShowEditButton] = useState(false);
     const [editProfile, setEditProfile] = useState(false)
     return (
-        <nav className="nav-container flex justify-between items-center px-2 fixed top-2 left-2 right-2 min-h-10">
+        <nav className="nav-container flex justify-between items-center px-2 fixed top-0 left-0 right-0 min-h-10">
             <div className="relative">
                 <img src={hamburger} alt="" className={`w-10 ${hamb && "invisible"}`}
                     onClick={() => setHamburger(true)}
@@ -31,9 +31,9 @@ export const NavbarMobile = () => {
                     <Link to="/product/laptop">PCs and laptops</Link>
                     <Link to="/product/audio video">Audio & video</Link>
                     <Link to="/product/refrigerator">Refrigrator</Link>
-                    <Link>New Arrivals</Link>
+                    <Link className="bg-gray-600">New Arrivals</Link>
                     {/* <Link>Today's deal</Link> */}
-                    <Link>Gift cards</Link>
+                    <Link className="bg-gray-600">Gift cards</Link>
                 </div>
             </div>
             <div>
@@ -62,6 +62,12 @@ export const NavbarMobile = () => {
                             Addresses
                         </button>
                         <hr className="border border-gray-500" />
+                        <Link to="/order">
+                            <div className="text-black text-center"
+                                onClick={() => setShowEditButton(false)}
+                            >View Orderes</div>
+                        </Link>
+                        <hr className="border border-gray-500"/>
                         <button
                             onClick={() => dispatch(logout())}
                         >

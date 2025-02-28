@@ -33,7 +33,6 @@ const Signup = () => {
     onSubmit: async (values) => {
       try {
         const res = await postApi('user/signup', values);
-        console.log(res?.validationSchema)
         toast.success(res?.data?.message || "Account created successfully");
         navigate("/login");
       } catch(err) {

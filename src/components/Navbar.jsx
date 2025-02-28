@@ -24,16 +24,17 @@ const Navbar = () => {
                     <span >
                         24*7 Service <span className="font-bold">123-8877332</span>
                     </span>
-                    <div className="flex gap-6">
-                        <Link to="/">Shipping & Return</Link>
-                        <Link to="/">Track order</Link>
+                    <div className="flex gap-6 bg-gray-600">
+                        <Link>Shipping & Return</Link>
+                        <Link>Track order</Link>
                     </div>
                 </div>
                 <div className="flex justify-between max-[378px]:flex-col gap-2">
                     <Link to="/">Digital Dynamics</Link>
-                    <div className="flex gap-1 bg-white p-[4px_8px] items-center rounded-lg justify-between">
+                    <div className="flex gap-1 bg-gray-600 p-[4px_8px] items-center rounded-lg justify-between">
                         <input type="text" placeholder='Search product'
                             className="border-none outline-none  bg-transparent"
+                            disabled
                         />
                         <img src={search} alt="" className="w-8" />
                     </div>
@@ -55,9 +56,9 @@ const Navbar = () => {
                         {/* <li><Link>Home appliances</Link></li> */}
                         <li><Link to="/product/audio video">Audio & video</Link></li>
                         <li><Link to="/product/refrigerator">Refrigrator</Link></li>
-                        <li><Link>New Arrivals</Link></li>
+                        <li className='bg-gray-700'><Link>New Arrivals</Link></li>
                         {/* <li><Link>Today's deal</Link></li> */}
-                        <li><Link>Gift cards</Link></li>
+                        <li className='bg-gray-700'><Link>Gift cards</Link></li>
                     </div>
                     <div className="flex gap-3 whitespace-nowrap">
                         <li><Link to="/product/cart">Cart</Link></li>

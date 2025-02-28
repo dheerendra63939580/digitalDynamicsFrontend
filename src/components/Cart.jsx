@@ -9,11 +9,11 @@ import toast from "react-hot-toast";
 import close from "../assets/icons/close.png"
 import { ViewAddress } from "../pages/addresses/ViewAddress";
 import { Modal } from "../Modal";
+import { ShowEmpty } from "./ShowEmpty";
 const Cart = () => {
     const profile = useSelector(accessProfile);
     const navigate = useNavigate()
     const [addressId, setAddressId] = useState("");
-    console.log("id", addressId)
     const [showAddressOption, setshowAddressOption] = useState(false);
     const [showAddAddress, setShowAddAddress] = useState(false);
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("cartItem") || "[]"));
@@ -31,8 +31,6 @@ const Cart = () => {
         setCartItems(updatedItem)
         localStorage.setItem("cartItem", JSON.stringify(updatedItem));
     }
-    if(cartItems?.length === 0)
-        return <span>Cart is empty</span>
     const handleCheckout = async () => {
         if(!addressId) {
             toast.error("Select address");
@@ -52,7 +50,6 @@ const Cart = () => {
             toast.success(res.data.message);
             const failedIds = res.data.data.failedProducts
             const cartItem = cartItems.filter(({ _id }) => !res.data.data.purchasedProducts.includes(_id));
-            console.log(failedIds)
             for(let failedValues of failedIds) {
                 for(let value of cartItem) {
                     if(failedValues?._id === value?._id) {
@@ -62,7 +59,6 @@ const Cart = () => {
                 }
             }
             localStorage.setItem("cartItem", JSON.stringify(cartItem));
-            console.log({cartItem})
             setCartItems([...cartItem])
         } catch(err) {
             console.log(err)
@@ -82,6 +78,12 @@ const Cart = () => {
     const handleAddressOption = () => {
         setshowAddressOption(!showAddressOption)
     }
+    if(cartItems?.length === 0)
+        return(
+        <ShowEmpty>
+            Cart is empty
+        </ShowEmpty>
+        )
     return(
         <div className="m-auto  lg:w-[80%]">
             <h1 className="text-xl p-2 mb-2">Cart</h1>
