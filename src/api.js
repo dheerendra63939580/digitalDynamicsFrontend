@@ -1,7 +1,7 @@
 import axios from "axios";
 import { store } from "./reduxToolkit/store";
 import { logout, setLoading } from "./reduxToolkit/slices/userSlice";
-const baseUrl = "http://localhost:3001";
+const baseUrl = "http://172.16.16.34:3001";
 const api = axios.create({
     baseURL: baseUrl,
     timeout: 10000,
