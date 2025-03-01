@@ -42,7 +42,7 @@ export const NavbarMobile = () => {
             <div>
                 <Link to='product/cart'>Cart</Link>
             </div>
-            {!userProfile.name ? <li><Link to='/login'>Login</Link></li> :
+            {!userProfile.name ? <Link to='/login'>Login</Link> :
                 <div className="relative">
                     <img src={profile} alt="" className="w-10"
                         onClick={() => setShowEditButton(!showEditButton)}
