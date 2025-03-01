@@ -66,7 +66,7 @@ const ProductPage = () => {
                         </li>
                     ))}
                 </ul>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-2">
                     <div className="flex gap-3 items-center">
                         <span className="bg-blue-500 px-4 py-2 text-white cursor-pointer text-lg"
                             onClick={increment}
