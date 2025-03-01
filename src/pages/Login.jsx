@@ -38,7 +38,7 @@ const Login = () => {
   });
 
   return (
-    <div className="bg-blue-400 min-h-screen p-2">
+    <div className="bg-blue-400 min-h-screen p-2 flex items-center justify-center">
         <div className={`flex flex-col justify-center items-center bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto`}>
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Login</h1>
         <form onSubmit={formik.handleSubmit} className="w-full">
@@ -77,10 +77,15 @@ const Login = () => {
             ) : null}
             </div>
             <div 
-                className="text-end mb-2 underline cursor-pointer"
-                onClick={() => navigate("/signup")}
+                className="mb-2 flex justify-between items-center"
             >
-                {"Don't"} Have Account
+                {"Don't"} Have Account 
+                <span 
+                  className=" underline cursor-pointer text-lg"
+                  onClick={() => navigate("/signup")}
+                  >
+                    Sign up
+                </span>
             </div>
             <div>
                 <button

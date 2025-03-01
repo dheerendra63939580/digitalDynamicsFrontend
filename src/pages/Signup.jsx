@@ -137,10 +137,15 @@ const Signup = () => {
             )}
           </div>
           <div
-              className="text-end underline mb-2 cursor-pointer"
-              onClick={() => navigate("/login")}
+              className="text-end mb-2 flex justify-between items-center"
           >
               Have Account
+              <span
+                className="cursor-pointer underline text-lg"
+                onClick={() => navigate("/login")}
+              >
+                Login in
+              </span>
           </div>
           <div>
             <button
