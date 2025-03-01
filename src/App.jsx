@@ -28,7 +28,7 @@ function App() {
           ))}
         </Route>
 
-        <Route path="*" element={<h1>404 Not Found</h1>} />
+        <Route path="*" element={<h1 className="p-2">404 Not Found</h1>} />
       </Routes>
       <Toaster
         position="top-right"
