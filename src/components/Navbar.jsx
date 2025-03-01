@@ -4,7 +4,7 @@ import "./Navbar.css"
 import search from '../assets/icons/search.png'
 import arrowDown from '../assets/icons/downArrow.png'
 import { NavbarMobile } from './NavbarMobile'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { accessProfile, logout, setProfile } from '../reduxToolkit/slices/userSlice'
 import { EditProfile } from '../pages/EditUserProfile'
 import { useGetProfile } from '../customHooks/useGetProfile'
@@ -13,6 +13,7 @@ const Navbar = () => {
     const {getProfile} = useGetProfile()
     const [showEditButton, setShowEditButton] = useState(false);
     const [editProfile, setEditProfile] = useState(false);
+    const dispatch = useDispatch()
     useEffect(() => {
         if(localStorage.getItem("token"))
             getProfile()

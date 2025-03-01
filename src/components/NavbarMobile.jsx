@@ -26,12 +26,12 @@ export const NavbarMobile = () => {
                             onClick={() => setHamburger(false)}
                         />
                     </div>
-                    <Link top="/product/air conditioner">Air conditionar</Link>
-                    <Link to="/product/kitchen appliances">Kitchen appliances</Link>
-                    <Link to="/product/laptop">PCs and laptops</Link>
-                    <Link to="/product/audio video">Audio & video</Link>
-                    <Link to="/product/refrigerator">Refrigrator</Link>
-                    <Link className="bg-gray-600">New Arrivals</Link>
+                    <Link to="/product/air conditioner"  onClick={() => setHamburger(false)} >Air conditionar</Link>
+                    <Link to="/product/kitchen appliances"  onClick={() => setHamburger(false)} >Kitchen appliances</Link>
+                    <Link to="/product/laptop"  onClick={() => setHamburger(false)} >PCs and laptops</Link>
+                    <Link to="/product/audio video"  onClick={() => setHamburger(false)} >Audio & video</Link>
+                    <Link to="/product/refrigerator"  onClick={() => setHamburger(false)} >Refrigrator</Link>
+                    <Link className="bg-gray-600"  onClick={() => setHamburger(false)} >New Arrivals</Link>
                     {/* <Link>Today's deal</Link> */}
                     <Link className="bg-gray-600">Gift cards</Link>
                 </div>

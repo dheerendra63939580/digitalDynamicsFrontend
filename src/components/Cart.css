@@ -1,13 +1,15 @@
 .cart-table {
     border: 1px solid rgba(33,33,33, .5);
     border-collapse: collapse;
+    min-width: max-content;
+    width: 100%;
 }
 .cart-table  tr {
     border: 1px solid rgba(33,33,33, .5);
-    width: 100%;
+
 }
 .cart-table td, .cart-table th {
-    padding: 2px 4px;
+    padding: 3px 4px;
 }
 @keyframes bubble {
     from {

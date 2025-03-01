@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import { getApi } from "../api";
 import { useEffect, useState } from "react";
 import { Loading } from "../components/Loading";
+import { Loader } from "../components/Loader";
 const aboutProduct = {
     "air conditioner": {
         heading: "Air Conditioner",
@@ -52,6 +53,8 @@ function ListingPage() {
 
     if(!aboutProduct?.[category]?.["heading"])
         return <h1>404 Not Found</h1>
+    if(loading)
+        return ( <Loader/> )
 
     return (
         <Card classes=" p-4  m-auto  min-[651px]:w-[80%]">

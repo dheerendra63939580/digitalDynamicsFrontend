@@ -87,50 +87,59 @@ const Cart = () => {
     return(
         <div className="m-auto  lg:w-[80%]">
             <h1 className="text-xl p-2 mb-2">Cart</h1>
-            <div className="flex gap-4 justify-center flex-col md:flex-row">
+            <div className="flex gap-4 justify-center flex-col md:flex-row md:justify-between w-full">
+                <div className="overflow-auto w-full">
                     <table className="cart-table bg-gray-100">
-                                <thead className="bg-blue-500">
-                                    <tr className="py-2">
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quanitity</th>
-                                        <th>Sub Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {cartItems?.map((value, index) => (
-                                        <tr key={`cart ${index}`}>
-                                            <td className="relative">
-                                                {value?.failedReason && <span className="text-red-600 absolute bottom-0"><span className="bubble"></span>{value?.failedReason}</span>}
-                                                <div className="flex gap-2 items-center">
-                                                    <img 
-                                                        src={close} 
-                                                        className="bg-red-300 w-8 cursor-pointer"
-                                                        onClick={() => removeItemFromCart(value?._id)}
-                                                    />
-                                                    <img src={value?.image} alt="" className="w-24 aspect-square sm:object-contain" />
-                                                    <span>{value?.name}</span>
-                                                </div>
-                                            </td>
-                                            <td className="whitespace-nowrap">{value?.price} INR</td>
-                                            <td>
-                                                <span className="bg-blue-500 px-4 py-2 text-white cursor-pointer text-lg"
-                                                    onClick={() => increaseQuantity(value?._id)}
-                                                >
-                                                    +
-                                                </span>
-                                                <span className="bg-white px-4 py-2">{value?.quantity}</span>
-                                                <span className="bg-blue-500 px-4 py-2 text-white cursor-pointer text-lg"
-                                                    onClick={() => decreaseQuantity(value?._id)}
-                                                >
-                                                    -
-                                                </span>
-                                            </td>
-                                            <td className="whitespace-nowrap">{value?.price * value?.quantity} INR</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
+                        <thead className="bg-blue-500">
+                            <tr className="py-2">
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cartItems?.map((value, index) => (
+                                <tr key={`cart ${index}`} className="relative">
+                                    <td>
+                                        {value?.failedReason && (
+                                            <span className="text-red-600 absolute -bottom-1">
+                                                <span className="bubble"></span>{value?.failedReason}. Remove it from cart.
+                                            </span>
+                                        )}
+                                        <div className="flex gap-2 items-center">
+                                            <img 
+                                                src={close} 
+                                                className="bg-red-300 w-8 cursor-pointer"
+                                                onClick={() => removeItemFromCart(value?._id)}
+                                            />
+                                            <img src={value?.image} alt="" className="w-24 aspect-square sm:object-contain" />
+                                            <span>{value?.name}</span>
+                                        </div>
+                                    </td>
+                                    <td className="whitespace-nowrap">{value?.price} INR</td>
+                                    <td>
+                                        <span 
+                                            className="bg-blue-500 px-4 py-2 text-white cursor-pointer text-lg"
+                                            onClick={() => increaseQuantity(value?._id)}
+                                        >
+                                            +
+                                        </span>
+                                        <span className="bg-white px-4 py-2">{value?.quantity}</span>
+                                        <span 
+                                            className="bg-blue-500 px-4 py-2 text-white cursor-pointer text-lg"
+                                            onClick={() => decreaseQuantity(value?._id)}
+                                        >
+                                            -
+                                        </span>
+                                    </td>
+                                    <td className="whitespace-nowrap">{value?.price * value?.quantity} INR</td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
+                </div>
+
                 <div className="border border-gray-400 min-w-[250px] h-fit md:sticky md:top-[133px] ">
                     <h1 className="bg-blue-500 pl-2 py-2">Cart Totals</h1>
                         <div className="px-2">
