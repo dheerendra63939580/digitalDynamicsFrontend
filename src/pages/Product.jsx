@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom"
 import { getApi } from "../api"
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
-import { Loading } from "../components/Loading";
 import { AddToCart } from "../helper";
 import { useSelector } from "react-redux";
 import { accessProfile } from "../reduxToolkit/slices/userSlice";
+import { Loader } from "../components/Loader";
 
 const ProductPage = () => {
     const {id, category} = useParams();
@@ -36,7 +36,7 @@ const ProductPage = () => {
     }
     
    if(loading)
-    return <Loading/>
+    return (<Loader/>)
     return (
         <Card classes="m-auto  lg:w-[80%] flex flex-col gap-6 md:flex-row px-4 py-2 md:justify-between md:items-center">
             <div className="flex justify-between items-center grow">
@@ -81,7 +81,7 @@ const ProductPage = () => {
                         </span>
                     </div>
                     <span className="bg-black text-white px-4 py-2 rounded-lg cursor-pointer"
-                        onClick={() => AddToCart(count, product, true)}
+                        onClick={() => AddToCart(count, product, true, true)}
                     >
                         Add To Cart
                     </span>
