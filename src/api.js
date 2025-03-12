@@ -1,7 +1,7 @@
 import axios from "axios";
 import { store } from "./reduxToolkit/store";
 import { logout, setLoading } from "./reduxToolkit/slices/userSlice";
-const baseUrl = "https://digitaldynamicsbackend.onrender.com";
+const baseUrl = "http://localhost:3001";
 const api = axios.create({
     baseURL: baseUrl,
     timeout: 10000,
@@ -72,9 +72,9 @@ export const putApi = async (endpoint, payload) => {
   }
 }
 
-export const deleteApi = async (endpoint) => {
+export const deleteApi = async (endpoint, payload) => {
   try {
-    const res = await api.delete(endpoint);
+    const res = await api.delete(endpoint, {data: payload});
     return res;
   } catch(err) {
     throw err?.response
