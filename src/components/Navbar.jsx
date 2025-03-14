@@ -104,10 +104,10 @@ const Navbar = () => {
                 </ul>
                 <div
                     className={`absolute z-50 bg-white right-2 top-2 transition-transform duration-300 ${
-                        editProfile ? "translate-x-0" : "translate-x-full"
+                        editProfile ? "translate-x-0" : "translate-x-[105%]"
                     } rounded-lg`}
                 >
-                    {editProfile && <EditProfile handleClose={() => setEditProfile(false)} /> }
+                    <EditProfile handleClose={() => setEditProfile(false)} /> 
                 </div>
             </nav>
             <div className="block md:hidden">
