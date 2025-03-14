@@ -72,9 +72,9 @@ export const putApi = async (endpoint, payload) => {
   }
 }
 
-export const deleteApi = async (endpoint) => {
+export const deleteApi = async (endpoint, payload) => {
   try {
-    const res = await api.delete(endpoint);
+    const res = await api.delete(endpoint, {data: payload});
     return res;
   } catch(err) {
     throw err?.response

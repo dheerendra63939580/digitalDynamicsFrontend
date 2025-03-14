@@ -20,20 +20,25 @@ export const NavbarMobile = () => {
                 <img src={hamburger} alt="" className={`w-10 ${hamb && "invisible"}`}
                     onClick={() => setHamburger(true)}
                 />
-                <div className={`absolute ${hamb ? "flex" : "hidden"} flex-col gap-3 absolute bg-blue-600 px-2 py-1 w-[200px]  rounded-lg left-0 top-12`}>
-                    <div className="relative mb-2">
-                        <img src={close} alt="" className="absolute w-8 h-8 right-0 top-0"
-                            onClick={() => setHamburger(false)}
-                        />
+                <div className={`absolute ${hamb ? "flex" : "hidden"} flex-col justify-between gap-3 absolute bg-blue-600 px-2 py-1 w-[200px]  rounded-lg left-0 top-12`} style={{height: "calc(100vh - 48px)"}}>
+                    <div className="flex flex-col gap-3">
+                        <div className="relative mb-2">
+                            <img src={close} alt="" className="absolute w-8 h-8 right-0 top-0"
+                                onClick={() => setHamburger(false)}
+                            />
+                        </div>
+                        <Link to="/product/air conditioner"  onClick={() => setHamburger(false)} >Air conditionar</Link>
+                        <Link to="/product/kitchen appliances"  onClick={() => setHamburger(false)} >Kitchen appliances</Link>
+                        <Link to="/product/laptop"  onClick={() => setHamburger(false)} >PCs and laptops</Link>
+                        <Link to="/product/audio video"  onClick={() => setHamburger(false)} >Audio & video</Link>
+                        <Link to="/product/refrigerator"  onClick={() => setHamburger(false)} >Refrigrator</Link>
+                        <Link className="bg-gray-600"  onClick={() => setHamburger(false)} >New Arrivals</Link>
+                        {/* <Link>Today's deal</Link> */}
+                        <Link className="bg-gray-600">Gift cards</Link>
                     </div>
-                    <Link to="/product/air conditioner"  onClick={() => setHamburger(false)} >Air conditionar</Link>
-                    <Link to="/product/kitchen appliances"  onClick={() => setHamburger(false)} >Kitchen appliances</Link>
-                    <Link to="/product/laptop"  onClick={() => setHamburger(false)} >PCs and laptops</Link>
-                    <Link to="/product/audio video"  onClick={() => setHamburger(false)} >Audio & video</Link>
-                    <Link to="/product/refrigerator"  onClick={() => setHamburger(false)} >Refrigrator</Link>
-                    <Link className="bg-gray-600"  onClick={() => setHamburger(false)} >New Arrivals</Link>
-                    {/* <Link>Today's deal</Link> */}
-                    <Link className="bg-gray-600">Gift cards</Link>
+                    <button onClick={() => dispatch(logout())} className="text-white" style={{textAlign: "left"}}>
+                        Log out
+                    </button>
                 </div>
             </div>
             <div>
@@ -68,11 +73,6 @@ export const NavbarMobile = () => {
                             >View Orderes</div>
                         </Link>
                         <hr className="border border-gray-500"/>
-                        <button
-                            onClick={() => dispatch(logout())}
-                        >
-                            Log out
-                        </button>
                     </div>
                 </div>}
             <div
