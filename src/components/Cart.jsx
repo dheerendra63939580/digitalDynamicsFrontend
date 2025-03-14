@@ -32,14 +32,14 @@ const Cart = () => {
         localStorage.setItem("cartItem", JSON.stringify(updatedItem));
     }
     const handleCheckout = async () => {
-        if(!addressId) {
-            toast.error("Select address");
-            return;
-        }
         if(!profile?.name)
             navigate("/login")
         if(!profile?.addresses?.length) {
             handleShowAddress();
+            return;
+        }
+        if(!addressId) {
+            toast.error("Select address");
             return;
         }
         let payload = [];
@@ -76,7 +76,11 @@ const Cart = () => {
         setShowAddAddress(!showAddAddress)
     }
     const handleAddressOption = () => {
-        setshowAddressOption(!showAddressOption)
+        if(profile.name) {
+            setshowAddressOption(!showAddressOption);
+        }
+        navigate("/login")
+        
     }
     if(cartItems?.length === 0)
         return(
