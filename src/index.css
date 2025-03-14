@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.translate-nav {
+    transform: translate(calc(-100% - 8px));
+    transition-duration: 1s;
+    transition-property: transform;
+    transition-timing-function: ease;
+}
+.translate-nav1 {
+    transform: translate(0);
+    transition-duration: 1s;
+    transition-property: transform;
+    transition-timing-function: ease;
+}

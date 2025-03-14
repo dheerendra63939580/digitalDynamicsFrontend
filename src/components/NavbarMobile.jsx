@@ -20,7 +20,9 @@ export const NavbarMobile = () => {
                 <img src={hamburger} alt="" className={`w-10 ${hamb && "invisible"}`}
                     onClick={() => setHamburger(true)}
                 />
-                <div className={`absolute ${hamb ? "flex" : "hidden"} flex-col justify-between gap-3 absolute bg-blue-600 px-2 py-1 w-[200px]  rounded-lg left-0 top-12`} style={{height: "calc(100vh - 48px)"}}>
+                <div className={`absolute ${hamb ? "translate-nav1" : "translate-nav"} flex flex-col justify-between gap-3
+                  bg-blue-600 px-2 py-1 w-[200px]  rounded-lg left-0 top-12 mb-2`} 
+                    style={{height: "calc(100vh - 48px)"}}>
                     <div className="flex flex-col gap-3">
                         <div className="relative mb-2">
                             <img src={close} alt="" className="absolute w-8 h-8 right-0 top-0"
@@ -36,9 +38,10 @@ export const NavbarMobile = () => {
                         {/* <Link>Today's deal</Link> */}
                         <Link className="bg-gray-600">Gift cards</Link>
                     </div>
+                    {!userProfile.name ? <Link to='/login'>Login</Link> :
                     <button onClick={() => dispatch(logout())} className="text-white" style={{textAlign: "left"}}>
                         Log out
-                    </button>
+                    </button> }
                 </div>
             </div>
             <div>
@@ -72,14 +75,13 @@ export const NavbarMobile = () => {
                                 onClick={() => setShowEditButton(false)}
                             >View Orderes</div>
                         </Link>
-                        <hr className="border border-gray-500"/>
                     </div>
                 </div>}
             <div
-                className={`absolute z-50 bg-white right-2 top-2 transition-transform duration-300 ${editProfile ? "translate-x-0" : "translate-x-full"
+                className={`absolute z-50 bg-white right-2 top-2 transition-transform duration-300 ${editProfile ? "translate-x-0" : "translate-x-[105%]"
                     } rounded-lg`}
             >
-                {editProfile && <EditProfile handleClose={() => setEditProfile(false)} />}
+                 <EditProfile handleClose={() => setEditProfile(false)} />
             </div>
         </nav>
     )
