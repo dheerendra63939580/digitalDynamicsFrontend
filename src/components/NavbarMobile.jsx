@@ -21,8 +21,8 @@ export const NavbarMobile = () => {
                     onClick={() => setHamburger(true)}
                 />
                 <div className={`absolute ${hamb ? "translate-nav1" : "translate-nav"} flex flex-col justify-between gap-3
-                  bg-blue-600 px-2 py-1 w-[200px]  rounded-lg left-0 top-12 mb-2`} 
-                    style={{height: "calc(100vh - 48px)"}}>
+                  bg-blue-600 px-2 py-1 w-[200px]  rounded-lg left-0 top-12`} 
+                    style={{height: "calc(100vh - 56px)"}}>
                     <div className="flex flex-col gap-3">
                         <div className="relative mb-2">
                             <img src={close} alt="" className="absolute w-8 h-8 right-0 top-0"
