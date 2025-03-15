@@ -78,6 +78,7 @@ const Cart = () => {
     const handleAddressOption = () => {
         if(profile.name) {
             setshowAddressOption(!showAddressOption);
+            return;
         }
         navigate("/login")
         
